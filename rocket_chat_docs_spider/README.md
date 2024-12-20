@@ -17,12 +17,12 @@ Install the required dependencies
 :
 ## Create virtual environment
 ```sh
-python3 -m venv .venv
+python -m venv .venv
 ```
 
 ## Activate virtual environment
 ```sh
-source venv/bin/activate
+source .venv/bin/activate
 ```
 
 ## Install dependencies
@@ -56,6 +56,18 @@ To run the spider, execute the following command:
 ```sh
 scrapy runspider rcspider.py -o rocket_chat_docs.jsonl
 ```
+
+The spider will crawl the Rocket.Chat documentation websites and save the extracted content to `rocket_chat_docs.jsonl`.
+
+To send the output to a different file, change the filename in the `-o` argument.
+
+For reading and processing the JSONL file, you can use the following Python code:
+
+```python
+python read_and_send.py
+```
+
+By default, the script reads the `rocket_chat_docs.jsonl` file and sends the extracted content to an edpoint defined in the `DocumentProcessor` class. However, you can change the endpoint or write your own custom callback function.
 
 
 ## Important Notes
