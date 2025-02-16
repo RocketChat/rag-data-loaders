@@ -49,12 +49,12 @@ class MySpider(scrapy.Spider):
                 self.visited_urls.add(link)
                 yield scrapy.Request(response.urljoin(link), callback=self.parse)
 
-        content = response.css('.content_block div p::text').getall()
-        h2_headers = response.css('.content_block div h2::text').getall()
-        page_title = response.css('.content_block div h1::text').get()
+        content = [c.strip() for c in response.css('.content_block div p::text').getall() if c.strip()]
+        h2_headers = [h.strip() for h in response.css('.content_block div h2::text').getall() if h.strip()]
+        page_title = response.css('.content_block div h1::text').get('').strip() 
 
         yield {
-            "page_title": page_title,
+            "page_title": page_title or None,
             "content": content,
             "h2_headers": h2_headers,
             "url": response.url
